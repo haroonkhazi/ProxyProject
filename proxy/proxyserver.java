@@ -1,4 +1,4 @@
-package proxy
+package proxy;
 
 import java.net.*;
 import java.io.*;
@@ -8,11 +8,10 @@ public class ProxyServer {
         ServerSocket serverSocket = null;
         boolean listening = true;
 
-        int port = 9999;
+        int port = 5017;
         try{
             port = Integer.parseInt(args[0]);
         } catch (Exception e) {
-            //ignore me
         }
         try {
             serverSocket = new ServerSocket(port);
