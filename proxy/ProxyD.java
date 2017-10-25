@@ -3,14 +3,16 @@ package proxy;
 import java.net.*;
 import java.io.*;
 
-public class ProxyServer {
+public class ProxyD {
     public static void main(String[] args) throws IOException{
         ServerSocket serverSocket = null;
         boolean listening = true;
-
-        int port = 5017;
+        //default port
+        int port = 5026;
         try{
-            port = Integer.parseInt(args[0]);
+            if (args[0].equals("-port") {
+                port = Integer.parseInt(args[1]);
+            }
         } catch (Exception e) {
         }
         try {

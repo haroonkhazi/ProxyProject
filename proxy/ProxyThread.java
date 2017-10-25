@@ -1,4 +1,4 @@
-package proxy
+package proxy;
 
 import java.net.*;
 import java.io.*;
@@ -6,6 +6,8 @@ import java.util.*;
 
 public class ProxyThread extends Thread{
     private Socket socket = null;
+    private final String SERVER_URL;
+    private final int SERVER_PORT;
     private static final int BUFFER_SIZE = 32768;
     public ProxyThread(Socket socket) {
         super("ProxyThread");
@@ -13,10 +15,8 @@ public class ProxyThread extends Thread{
     }
     public void run() {
         try {
-            DataOutputStream out =
-		new DataOutputStream(socket.getOutputStream());
-            BufferedReader in = new BufferedReader(
-		new InputStreamReader(socket.getInputStream()));
+            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             String inputLine, outputLine;
             int cnt = 0;
@@ -50,8 +50,7 @@ public class ProxyThread extends Thread{
                         is = conn.getInputStream();
                         rd = new BufferedReader(new InputStreamReader(is));
                     } catch (IOException ioe) {
-                        System.out.println(
-				"********* IO EXCEPTION **********: " + ioe);
+                        System.out.println(" IO EXCEPTION : " + ioe);
                     }
                 }
                 byte by[] = new byte[ BUFFER_SIZE ];
@@ -63,10 +62,7 @@ public class ProxyThread extends Thread{
                 }
                 out.flush();
             } catch (Exception e) {
-                //can redirect this to error log
                 System.err.println("Encountered exception: " + e);
-                //encountered error - just send nothing back, so
-                //processing can continue
                 out.writeBytes("");
             }
             if (rd != null) {
